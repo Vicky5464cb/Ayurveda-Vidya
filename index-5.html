@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ayurveda Vidya | NCISM Study Hub</title>
+<meta name="description" content="Ayurveda study notes organised by NCISM professional year.">
+<meta name="theme-color" content="#123b2e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Set theme before paint to avoid a flash */
+(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
+if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+document.documentElement.dataset.theme=t;})();
+</script>
+<style>
+:root{
+  --bg:#f1f6f2; --surface:#ffffff; --ink:#10241c; --muted:#546a5f; --line:#d5e2d9;
+  --neem:#123b2e; --turmeric:#e2a20f; --sage:#dce8df;
+  --head:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{
+  --bg:#0b1612; --surface:#13221c; --ink:#e6efe9; --muted:#96aca0; --line:#22352c; --sage:#1b2e25;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:120px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);transition:background .25s,color .25s}
+a{color:inherit;text-decoration:none}
+[data-go]{cursor:pointer}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--turmeric);outline-offset:2px;border-radius:8px}
+svg{display:block}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--neem);color:#eaf4ee}
+.brand{display:flex;align-items:center;gap:12px;padding:14px 18px 10px}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--turmeric);display:grid;place-items:center;flex:none}
+.logo svg{width:26px;height:26px}
+.brand b{font:800 22px/1.1 var(--head);letter-spacing:.2px}
+.brand small{display:block;font-size:12.5px;opacity:.75;margin-top:2px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:4px 12px 10px}
+.icon-btn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.1);transition:background .2s}
+.icon-btn:hover{background:rgba(255,255,255,.2)}
+.icon-btn svg{width:22px;height:22px}
+.bar .crumb{font-size:13px;opacity:.8;flex:1;text-align:center;padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sun{display:none}
+:root[data-theme="dark"] .sun{display:block}
+:root[data-theme="dark"] .moon{display:none}
+
+/* Drawer */
+.scrim{position:fixed;inset:0;background:rgba(5,15,10,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(82vw,320px);background:var(--surface);z-index:40;transform:translateX(-102%);transition:transform .28s ease;padding:calc(20px + env(safe-area-inset-top,0px)) 18px 24px;display:flex;flex-direction:column;gap:6px;box-shadow:8px 0 30px rgba(0,0,0,.25)}
+body.menu .drawer{transform:none}
+body.menu .scrim{opacity:1;pointer-events:auto}
+.drawer h2{font:700 15px var(--head);color:var(--muted);margin:10px 8px 6px}
+.drawer a,.drawer button.nav{display:flex;align-items:center;gap:12px;padding:13px 12px;border-radius:14px;font-weight:500;text-align:left;width:100%}
+.drawer a:hover,.drawer button.nav:hover{background:var(--sage)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+
+/* Layout */
+main{max-width:720px;margin:0 auto;padding:22px 16px 60px}
+.hero{padding:6px 4px 22px}
+.hero h1{font:800 clamp(30px,8.5vw,44px)/1.08 var(--head);margin:0 0 10px;letter-spacing:-.5px}
+.hero p{margin:0;color:var(--muted);max-width:44ch}
+
+/* Profession cards */
+.prof{background:var(--c);color:var(--on);border-radius:26px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 26px -14px var(--c)}
+.prof-btn{display:flex;align-items:center;gap:16px;width:100%;padding:20px 20px;text-align:left}
+.ord{font:800 54px/1 var(--head);letter-spacing:-2px}
+.ord sup{font-size:.42em;letter-spacing:0;vertical-align:top;position:relative;top:.25em;margin-left:2px}
+.pt{flex:1;min-width:0}
+.pt b{display:block;font:700 20px/1.2 var(--head)}
+.pt small{display:block;opacity:.8;font-size:13.5px;margin-top:3px}
+.chev{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;flex:none;transition:transform .3s}
+.prof.open .chev{transform:rotate(180deg)}
+.chev svg{width:20px;height:20px}
+.wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.prof.open .wrap{grid-template-rows:1fr}
+.subs{min-height:0;overflow:hidden;list-style:none;margin:0;padding:0 18px 0 34px}
+.prof.open .subs{padding-bottom:20px}
+.subs ul{list-style:none;margin:0;padding:0;border-left:2px solid var(--tree);}
+.subs li{position:relative;padding:4px 0 4px 22px}
+.subs li::before{content:"";position:absolute;left:0;top:50%;width:18px;border-top:2px solid var(--tree)}
+.subs a,.subs .sub-btn{width:100%;text-align:left;color:inherit;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 16px;border-radius:14px;background:var(--pill);font-weight:600;transition:transform .15s,background .2s}
+.subs a:hover,.subs .sub-btn:hover{background:var(--pill-h)}
+.subs a:active{transform:scale(.98)}
+.subs em{font-style:normal;font-weight:500;font-size:12.5px;opacity:.85}
+.subs li.has-parts::before{top:27px}
+.sub-btn .l{display:flex;align-items:center;gap:10px}
+.sub-btn .mini{width:18px;height:18px;flex:none;transition:transform .3s}
+.has-parts.open .mini{transform:rotate(180deg)}
+.wrap2{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.has-parts.open .wrap2{grid-template-rows:1fr}
+.wrap2>ul{min-height:0;overflow:hidden;margin-left:14px}
+.has-parts.open .wrap2>ul{padding-top:8px}
+.p1{--c:#1c6b4d;--on:#f2fbf6;--tree:rgba(255,255,255,.4);--pill:rgba(255,255,255,.14);--pill-h:rgba(255,255,255,.26)}
+.p2{--c:#e2a20f;--on:#221800;--tree:rgba(34,24,0,.35);--pill:rgba(255,255,255,.4);--pill-h:rgba(255,255,255,.6)}
+.p3{--c:#2b4a86;--on:#f1f5ff;--tree:rgba(255,255,255,.4);--pill:rgba(255,255,255,.14);--pill-h:rgba(255,255,255,.26)}
+
+/* Subject page */
+.head{background:var(--c);color:var(--on);border-radius:26px;padding:22px 22px 26px;margin-bottom:22px}
+.head a.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;opacity:.9;margin-bottom:18px;padding:6px 12px 6px 8px;border-radius:99px;background:var(--pill)}
+.head a.back svg{width:18px;height:18px}
+.head h1{font:800 clamp(28px,8vw,40px)/1.1 var(--head);margin:0;letter-spacing:-.4px}
+.head p{margin:8px 0 0;opacity:.85;font-size:14.5px}
+.parts{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-bottom:22px}
+.part{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1.5px solid var(--line);border-left:6px solid var(--c);border-radius:18px;padding:18px;font:700 17px var(--head);transition:transform .15s,border-color .2s}
+.part:hover{border-color:var(--c)}
+.part:active{transform:scale(.98)}
+.part svg{width:20px;height:20px;color:var(--muted)}
+.content{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:22px}
+.content h2{font:700 21px var(--head);margin:0 0 10px}
+.content h3{font:700 17px var(--head);margin:22px 0 6px}
+.content table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.content th,.content td{border:1px solid var(--line);padding:9px 12px;text-align:left}
+.content th{background:var(--sage)}
+.chaps{display:grid;gap:10px;margin-bottom:8px}
+.chap{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;overflow:hidden}
+.chap summary{list-style:none;display:flex;align-items:center;gap:12px;padding:16px 18px;font:700 16.5px/1.3 var(--head);cursor:pointer}
+.chap summary::-webkit-details-marker{display:none}
+.chap summary span{flex:1}
+.chap summary svg{width:20px;height:20px;color:var(--muted);transition:transform .25s;flex:none}
+.chap[open] summary svg{transform:rotate(180deg)}
+.chap[open]{border-color:var(--c)}
+.chap-body{padding:2px 18px 18px}
+.soft{color:var(--muted);margin:6px 0 0}
+.empty{border:2px dashed var(--line);border-radius:18px;padding:30px 20px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font:700 18px var(--head);margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:0 16px 34px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:700px){.ord{font-size:64px}.prof-btn{padding:24px 28px}.subs{padding-left:44px;padding-right:28px}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" data-go="/" tabindex="0" aria-label="Home">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#123b2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-5-1-8-5-8-10 5 0 8 2.5 8 7 0-4.5 3-7 8-7 0 5-3 9-8 10z"/><path d="M12 21V11"/></svg>
+    </span>
+    <span><b id="siteName">Ayurveda Vidya</b><small>NCISM study hub</small></span>
+  </a>
+  <div class="bar">
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+    <span class="crumb" id="crumb">Choose a professional year</span>
+    <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13.5A9 9 0 1 1 10.5 3a7 7 0 0 0 10.5 10.5z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-label="Menu"></nav>
+
+<main id="app"></main>
+<footer>Made for BAMS students, following the NCISM syllabus. Site version 7 - full chapter list loaded.</footer>
+
+<script>
+/* ============ CONTENT MAP ============
+   Add notes later by filling the `content` field (HTML) of any subject or part.
+   Lessons: add  chapters:['Lesson 1','Lesson 2']  to any subject. Tapping the subject then
+   lists the lessons (use {name:'Lesson 1', content:'<p>notes</p>'} to include notes).
+   The same works inside a Charaka sthana.
+   Rename the Charaka parts here if your syllabus splits them differently. */
+const SITE_NAME = 'Ayurveda Vidya';
+const DATA = [
+  {
+    "id": "p1",
+    "title": "1st Professional",
+    "ord": "1",
+    "sup": "st",
+    "tag": "Foundations of Ayurveda",
+    "subjects": [
+      {
+        "id": "padartha-vijnanam",
+        "name": "Padartha Vijnanam",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Ayurveda - An Introduction",
+              "2. Ayurveda - Philosophical Background",
+              "3. Padartha - An Introduction",
+              "4. Dravya (substance) - An Introduction",
+              "5. Panca-bhuta (five existents) - Description",
+              "6. Kala-dik-atma-manas (time-direction-soul-mind)",
+              "7. Guna - Description (Property / Quality)",
+              "8. Karma (activity)",
+              "9. Samanya-Vishesha-Samavaya-Abhava (Generality-particularity-inherence-absence)"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Pramana-Vijnana - Epistemology - An introduction",
+              "2. Aptopadesha - Authentic advice",
+              "3. Pratyaksha - Direct Perception",
+              "4. Anumana - Inference",
+              "5. Yukti & Upamana - Logical application & Analogy",
+              "6. Karya-Karana-Bandha - Cause-effect relationship"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "samhita-adhyayan-1",
+        "name": "Samhita Adhyayan I",
+        "parts": [
+          {
+            "id": "charaka-sutrasthana",
+            "name": "Charaka Sutrasthana",
+            "chapters": [
+              "CS Su.1 - Deerghanjiviteeya Adhyaya",
+              "CS Su.2 - Apamarga Tanduliya Adhyaya",
+              "CS Su.3 - Aragvadhiya Adhyaya",
+              "CS Su.4 - Shadvirechana-Shatashritiya Adhyaya",
+              "CS Su.5 - Matrashiteeya Adhyaya",
+              "CS Su.6 - Tasyashiteeya Adhyaya",
+              "CS Su.7 - Naveganadharaniya Adhyaya",
+              "CS Su.8 - Indriyopakramaniya Adhyaya",
+              "CS Su.9 - Khuddakachatushpada Adhyaya",
+              "CS Su.10 - Mahachatushpada Adhyaya",
+              "CS Su.11 - Tisraishaniya Adhyaya",
+              "CS Su.12 - Vatakalakaliya Adhyaya"
+            ]
+          },
+          {
+            "id": "astanga-hridaya",
+            "name": "Astanga Hridaya",
+            "chapters": [
+              "1. Introduction to Samhita",
+              "2. AH Su.1 - Ayushkamiya Adhyaya",
+              "3. AH Su.2 - Dinacharya Adhyaya",
+              "4. AH Su.3 - Ritucharya Adhyaya",
+              "5. AH Su.4 - Roganutpadaniya Adhyaya",
+              "6. AH Su.5 - Dravadravya Vijnaniya Adhyaya",
+              "7. AH Su.6 - Annaswaroopa Vijnaniya Adhyaya",
+              "8. AH Su.7 - Annaraksha Adhyaya",
+              "9. AH Su.8 - Matrashitiya Adhyaya",
+              "10. AH Su.9 - Dravyadi Vijnaniya Adhyaya",
+              "11. AH Su.10 - Rasabhediya Adhyaya",
+              "12. AH Su.11 - Doshadi Vijnaniya Adhyaya",
+              "13. AH Su.12 - Doshabhediya Adhyaya",
+              "14. AH Su.13 - Doshopakramaniya Adhyaya",
+              "15. AH Su.14 - Dvividhopakramaniya Adhyaya",
+              "16. AH Su.15 - Shodhanadigana Sangraha Adhyaya"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kriya-sharir",
+        "name": "Kriya Sharir",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Part A - Ayurvedic Physiology: Kriya Sharir",
+              "2. Part A - Ayurvedic Physiology: Basic Principles of Ayurveda",
+              "3. Part A - Ayurvedic Physiology: Tridosha",
+              "4. Part A - Ayurvedic Physiology: Vata Dosha",
+              "5. Part A - Ayurvedic Physiology: Pitta Dosha",
+              "6. Part A - Ayurvedic Physiology: Kapha Dosha",
+              "7. Part A - Ayurvedic Physiology: Dosha Vriddhi-Kshaya",
+              "8. Part A - Ayurvedic Physiology: Kriyakala",
+              "9. Part A - Ayurvedic Physiology: Prakriti - Deha & Manasa",
+              "10. Part A - Ayurvedic Physiology: Sharira Poshana (Ahara, Agni, Aharapaka)",
+              "11. Part A - Ayurvedic Physiology: Concept of Srotas",
+              "12. Part B - Contemporary Physiology: Physiology of Homeostasis",
+              "13. Part B - Contemporary Physiology: Physiology of Respiratory System",
+              "14. Part B - Contemporary Physiology: Physiology of Gastrointestinal System",
+              "15. Part B - Contemporary Physiology: Physiology of Nervous System",
+              "16. Part B - Contemporary Physiology: Physiology of Endocrine Glands"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Part A - Dhatu/Mala/Indriya: Dhatu",
+              "2. Part A - Dhatu/Mala/Indriya: Rasa Dhatu",
+              "3. Part A - Dhatu/Mala/Indriya: Rakta Dhatu",
+              "4. Part A - Dhatu/Mala/Indriya: Mamsa Dhatu",
+              "5. Part A - Dhatu/Mala/Indriya: Meda Dhatu",
+              "6. Part A - Dhatu/Mala/Indriya: Asthi Dhatu",
+              "7. Part A - Dhatu/Mala/Indriya: Majja Dhatu",
+              "8. Part A - Dhatu/Mala/Indriya: Shukra Dhatu",
+              "9. Part A - Dhatu/Mala/Indriya: Ashraya-Ashrayi Bhava",
+              "10. Part A - Dhatu/Mala/Indriya: Ojas",
+              "11. Part A - Dhatu/Mala/Indriya: Upadhatu - Stanya, Artava, Tvak",
+              "12. Part A - Dhatu/Mala/Indriya: Mala - Purisha, Mutra, Sveda, Dhatumala",
+              "13. Part A - Dhatu/Mala/Indriya: Indriya Vijnana",
+              "14. Part A - Dhatu/Mala/Indriya: Manas & Atma",
+              "15. Part A - Dhatu/Mala/Indriya: Pramana",
+              "16. Part A - Dhatu/Mala/Indriya: Nidra & Swapna",
+              "17. Part A - Dhatu/Mala/Indriya: Nadi",
+              "18. Part B - Contemporary Physiology: Haemopoietic System",
+              "19. Part B - Contemporary Physiology: Immunity",
+              "20. Part B - Contemporary Physiology: Physiology of Cardiovascular System",
+              "21. Part B - Contemporary Physiology: Muscle Physiology",
+              "22. Part B - Contemporary Physiology: Adipose Tissue",
+              "23. Part B - Contemporary Physiology: Physiology of Male & Female Reproductive System",
+              "24. Part B - Contemporary Physiology: Physiology of Excretion",
+              "25. Part B - Contemporary Physiology: Special Senses, Sleep & Dreams (endocrine gland)",
+              "26. Part B - Contemporary Physiology: Skin Physiology"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "rachana-sharir",
+        "name": "Rachana Sharir",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Shariropkramaniya Shaarira",
+              "2. Paribhasha Shaarira",
+              "3. Garbha Shaarira",
+              "4. Asthi Shaarira",
+              "5. Sandhi Shaarira",
+              "6. Snayu Sharir",
+              "7. Peshi Shaarira",
+              "8. Kesha, Danta, Nakha Sharir",
+              "9. Embryology",
+              "10. Osteology",
+              "11. Arthrology",
+              "12. Myology",
+              "13. Nervous System",
+              "14. Endocrinology",
+              "15. Lymphatic System"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Pramana Sharira",
+              "2. Koshtha Evam Ashaya Sharira",
+              "3. Sira Sharir",
+              "4. Dhamani Sharir",
+              "5. Strotas Shaarira",
+              "6. Kala Shaarira",
+              "7. Indriya Shaarira",
+              "8. Twacha Sharir",
+              "9. Marma Shaarira",
+              "10. Respiratory System",
+              "11. Digestive System",
+              "12. Cardiovascular System",
+              "13. Urinary System",
+              "14. Reproductive System",
+              "15. Sensory Organs"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sanskrit-itihasa",
+        "name": "Sanskrit & Ayurveda Itihasa",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Sanskrit Varnamala Parichaya",
+              "2. Samjna",
+              "3. Sandhi",
+              "4. Samasa",
+              "5. Karaka",
+              "6. Upasarga Prakarana",
+              "7. Shabdarupani",
+              "8. Dhaturupani",
+              "9. Avyayani Prakarana",
+              "10. Pratyaya",
+              "11. Nirukti & Paryaya",
+              "12. Anvaya / Vakya Rachana",
+              "13. Paribhasha Prakarana",
+              "14. Panchatantra - Aparikshitakaraka"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Part A - Sanskrit: Nirukti and Paryaya Pada",
+              "2. Part A - Sanskrit: Selected Ayurvedic terminology",
+              "3. Part A - Sanskrit: Sanskrit prose/poetry passages",
+              "4. Part A - Sanskrit: Panchatantra",
+              "5. Part A - Sanskrit: Translation / Anvaya / Vigraha / Padaccheda",
+              "6. Part B - Ayurveda Itihasa: Definition, derivation, significance and study of Itihasa",
+              "7. Part B - Ayurveda Itihasa: Origin and lineage of Ayurveda - Ayurvedavatarana",
+              "8. Part B - Ayurveda Itihasa: Ayurveda references in Veda, Upanishad and Purana",
+              "9. Part B - Ayurveda Itihasa: Structure, speciality and chronology of major Samhitas",
+              "10. Part B - Ayurveda Itihasa: Charaka Samhita",
+              "11. Part B - Ayurveda Itihasa: Sushruta Samhita",
+              "12. Part B - Ayurveda Itihasa: Ashtanga Sangraha",
+              "13. Part B - Ayurveda Itihasa: Ashtanga Hridaya",
+              "14. Part B - Ayurveda Itihasa: Laghutrayi",
+              "15. Part B - Ayurveda Itihasa: Contributions of important Acharyas and development of Ayurveda"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "title": "2nd Professional",
+    "ord": "2",
+    "sup": "nd",
+    "tag": "Drugs, diagnosis and public health",
+    "subjects": [
+      {
+        "id": "samhita-adhyayan-2",
+        "name": "Samhita Adhyayan II",
+        "parts": [
+          {
+            "id": "sutrasthana",
+            "name": "Sutrasthana",
+            "chapters": [
+              "Chapter 13: Sneha Adhyaya (Oleation Therapy)",
+              "Chapter 14: Sweda Adhyaya (Sudation / Fomentation Therapy)",
+              "Chapter 15: Upakalpaniya Adhyaya (Equipment & Management for Cleansing Therapies)",
+              "Chapter 16: Chikitsaprabhritiya Adhyaya (Duties of Physician in Panchakarma & Proper Management)",
+              "Chapter 17: Kiyanta Shirasiya Adhyaya (Diseases of Head and Vital Organs)",
+              "Chapter 18: Trishothiya Adhyaya (Three Types of Swelling / Inflammation)",
+              "Chapter 19: Ashtodariya Adhyaya (48 Primary Disease Types / Classification of Diseases)",
+              "Chapter 20: Maharoga Adhyaya (Major Diseases according to Vata, Pitta, and Kapha)",
+              "Chapter 21: Ashtauninditiya Adhyaya (Eight Types of Condemned Bodily Constitutions, including Obesity & Emaciation)",
+              "Chapter 22: Langhanabrimhaniya Adhyaya (Lightening / Deprivation and Nourishing Therapies)",
+              "Chapter 23: Santarpaniya Adhyaya (Diseases caused by Over-nutrition and Under-nutrition)",
+              "Chapter 24: Vidhishonitiya Adhyaya (Regimen of Healthy Blood and Blood Purifying Methods)",
+              "Chapter 25: Yajjah Purushiya Adhyaya (Origin of Man, Wholesome Diet, and Best Substances)",
+              "Chapter 26: Atreyabhadrakapyiya Adhyaya (The Six Tastes / Shad Rasa and Principles of Dietetics)",
+              "Chapter 27: Annapanavidhi Adhyaya (Detailed Guidelines on Food and Beverages)",
+              "Chapter 28: Vividhashitapitiya Adhyaya (Digestion, Transformation of Food, and Formation of Tissues)",
+              "Chapter 29: Dashapranayataneeya Adhyaya (The Ten Vital Locations / Seats of Life Forces)",
+              "Chapter 30: Arthedashmahamooliya Adhyaya (The Ten Great Vessels / Roots of the Heart & Scope of Ayurveda)"
+            ]
+          },
+          {
+            "id": "nidanasthana",
+            "name": "Nidanasthana",
+            "chapters": [
+              "Chapter 1: Prameha Nidana Adhyaya (Diagnosis of Urinary Disorders & Diabetes)",
+              "Chapter 2: Raktapitta Nidana Adhyaya (Diagnosis of Bleeding Disorders)",
+              "Chapter 3: Gulma Nidana Adhyaya (Diagnosis of Abdominal Tumors / Masses)",
+              "Chapter 4: Kushtha Nidana Adhyaya (Diagnosis of Skin Diseases & Leprosy)",
+              "Chapter 5: Shosha Nidana Adhyaya (Diagnosis of Emaciation / Phthisis / Tuberculosis)",
+              "Chapter 6: Unmada Nidana Adhyaya (Diagnosis of Insanity / Psychosis)",
+              "Chapter 7: Apasmara Nidana Adhyaya (Diagnosis of Epilepsy)",
+              "Chapter 8: Jwara Nidana Adhyaya (Diagnosis of Fevers)"
+            ]
+          },
+          {
+            "id": "vimanasthana",
+            "name": "Vimanasthana",
+            "chapters": [
+              "Chapter 1: Rasa Vimana Adhyaya (Taste, Pharmacology, and Dietary Rules)",
+              "Chapter 2: Trividha Kukshiya Vimana Adhyaya (Three Parts of Stomach Capacity and Dietary Quantities)",
+              "Chapter 3: Janapadodhvamsaniya Vimana Adhyaya (Epidemics, Pandemics, Pollution, and Environmental Pathology)",
+              "Chapter 4: Trividha Roga Visheshavijnaniya Vimana Adhyaya (Three Methods of Examination: Pratyaksha, Anumana, Aptopadesha)",
+              "Chapter 5: Srotas Vimana Adhyaya (Channels of the Body, Pathology, and Signs of Srotodushti)",
+              "Chapter 6: Roganika Vimana Adhyaya (Classification of Diseases, Agni Types, and Prakriti)",
+              "Chapter 7: Vyadhitarupiya Vimana Adhyaya (Determination of Disease Severity and Examination of Patient Strength)",
+              "Chapter 8: Rogabhagitiya Vimana Adhyaya (Methods of Study, Debate, Teaching, Ethics, and Dasa-Vidha Pariksha)"
+            ]
+          },
+          {
+            "id": "sharirasthana",
+            "name": "Sharirasthana",
+            "chapters": [
+              "Chapter 1: Katidhapurushiya Adhyaya (Ultimate Truth, Soul, Mind, and Creation)",
+              "Chapter 2: Atulyagotra Sharira Adhyaya (Genetics, Embryo Formation, and Consanguinity)",
+              "Chapter 3: Khuddika Garbhavakranti Sharira Adhyaya (Microscopic / Minor Details of Embryonic Development)",
+              "Chapter 4: Mahati Garbhavakranti Sharira Adhyaya (Detailed Development of the Fetus Month-by-Month)",
+              "Chapter 5: Purushavichaya Sharira Adhyaya (Microcosm vs. Macrocosm - Equating Man and Universe)",
+              "Chapter 6: Shariravichaya Sharira Adhyaya (Constitutional Analysis, Prakriti, and Anatomical Structures)",
+              "Chapter 7: Sharirasankhya Sharira Adhyaya (Enumeration of Anatomical Structures - Bones, Joints, Sira, Dhamani, etc.)",
+              "Chapter 8: Jatisutriya Sharira Adhyaya (Management of Pregnancy, Antenatal Care, Labor, and Puerperium)"
+            ]
+          },
+          {
+            "id": "indriyasthana",
+            "name": "Indriyasthana",
+            "chapters": [
+              "Chapter 1: Varnasvariya Indriya Adhyaya (Prognostic Signs based on Changes in Complexion and Voice)",
+              "Chapter 2: Pushpaka Indriya Adhyaya (Prognostic Signs based on Odor, Taste, and Premonitory Signs)",
+              "Chapter 3: Parimarshaniya Indriya Adhyaya (Prognostic Signs based on Touch and Palpation)",
+              "Chapter 4: Indriyaneeka Indriya Adhyaya (Prognostic Signs related to the Five Sense Organs)",
+              "Chapter 5: Purvaroopiya Indriya Adhyaya (Prognostic Significance of Premonitory Symptoms and Dreams)",
+              "Chapter 6: Katamaniyeeya Indriya Adhyaya (Fatal Signs Observed in Various Bodily Conditions)",
+              "Chapter 7: Pannaroopiya Indriya Adhyaya (Fatal Images, Shadows, and Perceptual Distortions)",
+              "Chapter 8: Avapatakeeya Indriya Adhyaya (Fatal Bodily Alterations and Physical Degeneration)",
+              "Chapter 9: Yasya Shyava Naimitteeya Indriya Adhyaya (Fatal Signs based on Discoloration and Skin Conditions)",
+              "Chapter 10: Sadyomaranakaleeya Indriya Adhyaya (Prognostic Signs of Instant or Rapid Impending Death)",
+              "Chapter 11: Anujyotiyeeya Indriya Adhyaya (Fatal Signs based on Loss of Radiance, Ojas, and Vigor)",
+              "Chapter 12: Gomayachhoorniya Indriya Adhyaya (Prognostic Signs based on Scalp, Hair, and Final Fatal States)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dravyaguna",
+        "name": "Dravyaguna Vijnana",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Dravyaguna Vijnana",
+              "2. Dravya",
+              "3. Guna",
+              "4. Rasa",
+              "5. Vipaka",
+              "6. Virya",
+              "7. Prabhava",
+              "8. Interrelationship of Rasa-Guna-Virya-Vipaka-Prabhava",
+              "9. Karma",
+              "10. Karmas of Dashemani Gana",
+              "11. Principles of General Pharmacology",
+              "12. Mishraka Gana",
+              "13. Nomenclature of Dravya",
+              "14. Nighantu and Vedic Taxonomy",
+              "15. Botanical Identification",
+              "16. Cultivation and Conservation",
+              "17. Adulteration and Substitutes",
+              "18. Quality Control",
+              "19. Pharmacovigilance",
+              "20. Research Updates",
+              "21. Vrikshayurveda and Ethno-medicine",
+              "22. Network Pharmacology and Bioinformatics"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Bheshajavacharaniya",
+              "2. Dravya Nama-Guna-Karma Jnana",
+              "3. Dravya Nama-Guna-Karma Jnana - prescribed medicinal drugs"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "rasashastra",
+        "name": "Rasashastra & Bhaishajya Kalpana",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Chronological Development of Ayurvediya Aushadhi Nirmana",
+              "2. Paribhasha",
+              "3. Adharbhuta Siddhanta",
+              "4. Yantropakaranani-I",
+              "5. Yantropakaranani-II",
+              "6. Kalpana Nirmana-I",
+              "7. Kalpana Nirmana-II",
+              "8. Rasa Dravya",
+              "9. Parada",
+              "10. Maharasa",
+              "11. Uparasa",
+              "12. Dhatu",
+              "13. Upadhatu",
+              "14. GMP & Regulatory Aspects"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Aushadhi Prayoga Vigyana",
+              "2. Single Drug - Herbal & Mineral",
+              "3. Classical Formulations",
+              "4. Aushadha Matra",
+              "5. Anupana",
+              "6. Route of Administration",
+              "7. Rational Prescription",
+              "8. Nutraceuticals",
+              "9. Anupana Prayoga",
+              "10. Safe Dispensing",
+              "11. Traditional & Local Health Practices",
+              "12. Pharmacovigilance"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "roga-nidana",
+        "name": "Roga Nidana & Vikriti Vijnana",
+        "chapters": [
+          "1. Roga Nidana - Pathophysiology & Clinical Diagnosis",
+          "2. Pareeksha",
+          "3. Methods of Rogi Pareeksha",
+          "4. Sapeksha Nidana / Vyavachedaka Nidana",
+          "5. Upashaya / Anupashaya",
+          "6. Dosha Vikriti",
+          "7. Doshagati & Rogamarga",
+          "8. Srotodushti",
+          "9. Concept of Ama",
+          "10. Assessment of Ama",
+          "11. Sthana Samshraya / Poorvaroopa",
+          "12. Dushya Dushti",
+          "13. Samprapti",
+          "14. Rupa",
+          "15. Vyadhinamakarana",
+          "16. Vyadhi",
+          "17. Ashtanindita",
+          "18. Janapadodhwamsa Vikara",
+          "19. Nidanarthakara Vyadhi / Vyadhi Sankara",
+          "20. Vyadhikshamatva",
+          "21. Rogi Bala Pareeksha",
+          "22. Dhatu Paka",
+          "23. Infection & Nutritional Disorders",
+          "24. Upadrava",
+          "25. Arishta",
+          "26. Vyadhibala Pareeksha",
+          "27. Sadhyasadhyata",
+          "28. Digital Health & Artificial Intelligence in Roganidana"
+        ]
+      },
+      {
+        "id": "swasthavritta",
+        "name": "Swasthavritta & Yoga",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Swastha and Swasthya",
+              "2. Healthy Lifestyle - Dinacharya",
+              "3. Ratricharya",
+              "4. Ritucharya",
+              "5. Roganutpadaniya",
+              "6. Sadvritta",
+              "7. Ahara",
+              "8. Rasayana for Swastha",
+              "9. Yoga",
+              "10. Naturopathy"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Community Health",
+              "2. Epidemiology",
+              "3. Environment & Health",
+              "4. Water",
+              "5. Air",
+              "6. Housing",
+              "7. Sanitation",
+              "8. Waste Management",
+              "9. Occupational Health",
+              "10. Communicable Diseases",
+              "11. Non-communicable Diseases",
+              "12. Maternal & Child Health",
+              "13. National Health Programmes",
+              "14. Health Education",
+              "15. Public Health Administration"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agada-tantra",
+        "name": "Agada Tantra & Vidhi Vaidyaka",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Concepts of Agada Tantra",
+              "2. Visha Chikitsa",
+              "3. Vishakta Ahara Pariksha & Viruddha Ahara",
+              "4. Garavisha & Dooshivisha",
+              "5. Visha Upadrava & Diseases due to Poison Exposure",
+              "6. Environmental Toxicology",
+              "7. Dermatological Manifestations of Visha/Poison",
+              "8. Therapeutic Utility of Agada Yoga",
+              "9. Sthavara Visha - Plant Origin",
+              "10. Sthavara Visha - Metallic Origin",
+              "11. Jangama Visha",
+              "12. Kritrima Visha",
+              "13. Substances of Abuse",
+              "14. Agada Tantra Perspectives on Cancer"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "15. Forensic Medicine & Medical Jurisprudence",
+              "16. Vaidya Sadvritta - Duties & Responsibilities",
+              "17. Legal Procedures",
+              "18. Personal Identity",
+              "19. Thanatology",
+              "20. Asphyxial Deaths",
+              "21. Injury",
+              "22. Sexual Offences",
+              "23. Poisoning & Medico-legal Aspects",
+              "24. Medical Negligence",
+              "25. Consumer Protection / Legal Responsibilities"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "title": "3rd Professional",
+    "ord": "3",
+    "sup": "rd",
+    "tag": "Clinical practice",
+    "subjects": [
+      {
+        "id": "kayachikitsa",
+        "name": "Kayachikitsa",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Kaya, Chikitsa & Kayachikitsa",
+              "2. Clinical Ethics",
+              "3. Jvara",
+              "4. Anuktaroga",
+              "5. Sankramika Jvara",
+              "6. Rasa Pradoshaja Vikara",
+              "7. Rakta Pradoshaja Vikara",
+              "8. Kshudra Roga",
+              "9. Mamsa & Meda Pradoshaja Vikara",
+              "10. Shuddha-Ashuddha Chikitsa / Chikitsajanita Vikara"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "11. Vatavyadhi",
+              "12. Asthi-Majja Pradoshaja Vikara",
+              "13. Pranavaha Srotodushti Vikara",
+              "14. Udakavaha Srotodushti Vikara",
+              "15. Mootravaha Srotodushti Vikara",
+              "16. Purishavaha Srotodushti Vikara"
+            ]
+          },
+          {
+            "id": "paper-3",
+            "name": "Paper III",
+            "chapters": [
+              "17. Annavaha Srotodushti Vikara",
+              "18. Manovaha Srotodushti Vikara",
+              "19. Antahsravi Granthi Vyadhi",
+              "20. Vyadhikshamatva Vikara",
+              "21. Shukravaha Srotasa Vikara",
+              "22. Guhya Roga",
+              "23. Vajikarana",
+              "24. Rasayana",
+              "25. Jarajanya & Indriyapradoshaja Vikara"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "panchakarma",
+        "name": "Panchakarma",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Panchakarma - Fundamental Principles",
+              "2. Poorvakarma",
+              "3. Snehana",
+              "4. Swedana",
+              "5. Vamana",
+              "6. Virechana",
+              "7. Basti",
+              "8. Nasya",
+              "9. Raktamokshana",
+              "10. Samsarjana Krama",
+              "11. Paschat Karma",
+              "12. Panchakarma Complications",
+              "13. Contraindications & Indications",
+              "14. Panchakarma in Different Diseases"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "1. Upakarma",
+              "2. Shamana Procedures",
+              "3. Brimhana",
+              "4. Langhana",
+              "5. Lepa",
+              "6. Abhyanga",
+              "7. Pichu",
+              "8. Parisheka",
+              "9. Upanaha",
+              "10. Kati Basti",
+              "11. Janu Basti",
+              "12. Greeva Basti",
+              "13. Shirodhara",
+              "14. Pinda Sweda",
+              "15. Other Allied Procedures"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shalya-tantra",
+        "name": "Shalya Tantra",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I – Fundamentals of Shalya Tantra",
+            "chapters": [
+              "1. Introduction to Shalya Tantra",
+              "2. Yantra & Shastra",
+              "3. Nirjantukarana",
+              "4. Sangyaharana",
+              "5. Trividha Karma",
+              "6. Shastra Karma",
+              "7. Yogya",
+              "8. Marma",
+              "9. Kshara Karma",
+              "10. Agnikarma",
+              "11. Raktamokshana",
+              "12. Bandha Vidhi",
+              "13. Pranashta Shalya",
+              "14. Fluid, Electrolyte, Acid-Base Balance & Nutrition",
+              "15. Rakta",
+              "16. Life-saving & Emergency Medicines",
+              "17. Naidanik Vidhi",
+              "18. Shat Kriyakala",
+              "19. Samanya Vyadhi Parichaya",
+              "20. Vrana",
+              "21. Kshudra Roga",
+              "22. Manya Vikara",
+              "23. Sira Vikara",
+              "24. Dhamani Vikara",
+              "25. Snayu Vikara",
+              "26. AIDS/HIV & Hepatitis B/C"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "27. Bhagna",
+              "28. Asthi Sandhi Vikara",
+              "29. Shirobhighata",
+              "30. Kasheruka Vikara",
+              "31. Stana Roga",
+              "32. Udara Roga",
+              "33. Gudagata Roga",
+              "34. Parikartika",
+              "35. Arsha",
+              "36. Bhagandara",
+              "37. Ashmari",
+              "38. Mutraghata",
+              "39. Mutrakrichra",
+              "40. Prostatic Disorders",
+              "41. Vriddhi Roga",
+              "42. Antravriddhi",
+              "43. ...and the remaining prescribed surgical disease topics up to Topic 54"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shalakya-tantra",
+        "name": "Shalakya Tantra",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Shareera & Nidana Panchaka of Netraroga",
+              "2. Samanya Chikitsa & Kriyakalpa",
+              "3. Panchakarma & Netraroga",
+              "4. Sanjnaharana in Netraroga",
+              "5. Sandhigata Roga-1",
+              "6. Sandhigata Roga-2",
+              "7. Sandhigata Roga-3",
+              "8. Vartmagata Roga-1",
+              "9. Vartmagata Roga-2",
+              "10. Vartmagata Roga-3",
+              "11. Bhedana Karma",
+              "12. Lekhana Karma",
+              "13. Shuklagata Roga-1",
+              "14. Shuklagata Roga-2",
+              "15. Chhedana Karma",
+              "16. Agnikarma & Ksharakarma",
+              "17. Krishnagata Roga-1",
+              "18. Krishnagata Roga-2",
+              "19. Dravyas Used in Netrachikitsa-1",
+              "20. Eye Donation",
+              "21. Sarvagata Roga-1",
+              "22. Sarvagata Roga-2",
+              "23. Glaucoma",
+              "24. Drishtigata Roga-1",
+              "25. Nayanabhighata",
+              "26. Drishtigata Roga-2",
+              "27. Drishtigata Roga-3",
+              "28. Dravyas Used in Netra Chikitsa-2",
+              "29. Dravyas Used in Netra Chikitsa-3, Swasthavritta, Kuposhanajanya Netravikara & Community Ophthalmology"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "30. Shiroroga",
+              "31. Samanya Chikitsa of Shiroroga",
+              "32. Karna Shareera & Nidana Panchaka",
+              "33. Karnaroga-1",
+              "34. Nasa Shareera & Nidana Panchaka",
+              "35. Pratishyaya",
+              "36. Mukha Shareera & Nidana Panchaka",
+              "37. Oshtharoga",
+              "38. Sarvasara Mukharoga",
+              "39. National Oral Health Programme",
+              "40. Kapalagata Roga",
+              "41. Karna Kriya Shareera",
+              "42. Karna Badhirya, Karnanada & Kshweda",
+              "43. Karna Srava & Putikarna",
+              "44. Karnakandu/Karnaguthaka etc.",
+              "45. Rhinitis",
+              "46. Deeptadi Nasaroga",
+              "47. Nasavamsha-kutilatwa",
+              "48. Dantamulagata Roga",
+              "49. Jihvagata Roga",
+              "50. ...and the remaining prescribed ENT/oral topics through the end of Paper II"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prasuti-tantra",
+        "name": "Prasuti Tantra & Stri Roga",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Stree Vishishta Shareera Vigyana",
+              "2. Rutuchakra",
+              "3. Garbha Vigyana",
+              "4. Garbhini Vigyana",
+              "5. Garbha Vyapad",
+              "6. Garbhini Vyapad",
+              "7. Prasava Vigyana",
+              "8. Prasava Vyapad",
+              "9. Sutika Vigyana",
+              "10. Sutika Vyapad",
+              "11. Stanyotpatti & Stanyapana"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "12. Stree Prajanananga Nirmana & Vikruti",
+              "13. Yantra Evam Shastra",
+              "14. Stree Rugna Parikshana",
+              "15. Artava Vyapad",
+              "16. Rajonivritti",
+              "17. Yoni Vyapad",
+              "18. Garbhashaya Vikara",
+              "19. Yonimarga Vikara",
+              "20. Kshara/Agnikarma-related Procedures",
+              "21. Stree Shalya Procedures",
+              "22. Breast Disorders",
+              "23. Stree Granthi/Arbuda",
+              "24. PCOS-related Disorders",
+              "25. Endometriosis",
+              "26. Infertility",
+              "27. Vandhyatwa"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaumarabhritya",
+        "name": "Kaumarabhritya",
+        "parts": [
+          {
+            "id": "paper-1",
+            "name": "Paper I",
+            "chapters": [
+              "1. Kaumarabhritya Tantra - Introduction & Development",
+              "2. Vayobheda",
+              "3. Garbha & Fetal Development",
+              "4. Navajata Shishu Paricharya",
+              "5. Neonatal Care",
+              "6. Bala Poshan",
+              "7. Stanya & Stanyapana",
+              "8. Growth & Development",
+              "9. Bala Pariksha",
+              "10. Immunization",
+              "11. Bala Rogas - General Principles"
+            ]
+          },
+          {
+            "id": "paper-2",
+            "name": "Paper II",
+            "chapters": [
+              "12. Nutritional Disorders",
+              "13. Respiratory Disorders",
+              "14. Gastrointestinal Disorders",
+              "15. Infectious Diseases",
+              "16. Skin Disorders",
+              "17. Neurological Disorders",
+              "18. Developmental Disorders",
+              "19. Genetic Disorders",
+              "20. Behavioural & Psychological Disorders",
+              "21. Emergency Conditions in Children",
+              "22. Pediatric Panchakarma / Therapeutic Principles"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "samhita-adhyayan-3",
+        "name": "Samhita Adhyayan III",
+        "chapters": [
+          "1. Charaka Samhita",
+          "2. Sushruta Samhita",
+          "3. Ashtanga Hridaya",
+          "4. Nidana Concepts",
+          "5. Chikitsa Principles",
+          "6. Shodhana",
+          "7. Rasayana",
+          "8. Vajikarana",
+          "9. Shalya/Parasurgical Concepts",
+          "10. Shalakya Concepts",
+          "11. Prasuti/Kaumarabhritya Classical References",
+          "12. Important Clinical Shlokas and Their Application"
+        ]
+      },
+      {
+        "id": "research-methodology",
+        "name": "Research Methodology & Medical Statistics",
+        "chapters": [
+          "1. Research Methodology: Introduction to Research",
+          "2. Research Methodology: Historical Developments in Research",
+          "3. Research Methodology: Research Types",
+          "4. Research Methodology: Research Ethics",
+          "5. Research Methodology: Research Designs & Terminologies",
+          "6. Research Methodology: Research Process",
+          "7. Research Methodology: Databases, Portals & Artificial Intelligence",
+          "8. Research Methodology: Guidelines to Report Research",
+          "9. Research Methodology: Intellectual Property Rights / Patent / TKDL",
+          "10. Research Methodology: Research Critiquing",
+          "11. Medical Statistics: Introduction to Medical Statistics",
+          "12. Medical Statistics: Data",
+          "13. Medical Statistics: Basic Statistical Terms",
+          "14. Medical Statistics: Collection & Presentation of Data",
+          "15. Medical Statistics: Measures of Central Tendency",
+          "16. Medical Statistics: Measures of Deviation / Dispersion / Variability",
+          "17. Medical Statistics: Probability",
+          "18. Medical Statistics: Hypothesis & Test of Significance",
+          "19. Medical Statistics: Parametric & Non-parametric Tests",
+          "20. Medical Statistics: Correlation & Regression",
+          "21. Medical Statistics: Commonly Used Statistical Software"
+        ]
+      },
+      {
+        "id": "emergency-medicine",
+        "name": "Emergency Medicine",
+        "chapters": [
+          "1. Introduction to Emergency Medicine",
+          "2. Assessment & Triage",
+          "3. Basic Life Support",
+          "4. Advanced Life Support Principles",
+          "5. Shock",
+          "6. Respiratory Emergencies",
+          "7. Cardiovascular Emergencies",
+          "8. Neurological Emergencies",
+          "9. Trauma & Injury",
+          "10. Poisoning",
+          "11. Burns",
+          "12. Acute Abdomen",
+          "13. Acute Renal/Metabolic Emergencies",
+          "14. Emergency Obstetric Conditions",
+          "15. Pediatric Emergencies",
+          "16. Anaphylaxis",
+          "17. Emergency Drugs",
+          "18. CPR & Airway Management",
+          "19. Disaster/Emergency Preparedness",
+          "20. Referral & Stabilization"
+        ]
+      }
+    ]
+  }
+];
+
+/* Subjects with `chapters` become expandable lists of lessons on the home page */
+DATA.forEach(P => P.subjects.forEach(S => {
+  if (S.chapters && !S.parts) {
+    S.parts = S.chapters.map((c, i) => typeof c === 'string' ? {id:'lesson-' + (i + 1), name:c} : Object.assign({id:'lesson-' + (i + 1)}, c));
+    S.partLabel = 'lessons';
+    delete S.chapters;
+  }
+}));
+
+const $ = s => document.querySelector(s);
+const app = $('#app'), crumb = $('#crumb');
+const chev = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
+let openId = null;
+let route = '/';
+
+document.title = SITE_NAME + ' | NCISM Study Hub';
+$('#siteName').textContent = SITE_NAME;
+
+/* ---------- Drawer ---------- */
+$('#drawer').innerHTML =
+  '<h2>Menu</h2><a data-go="/" tabindex="0" data-close>Home</a><h2>Professional years</h2>' +
+  DATA.map(p => `<button class="nav p ${p.id}" data-open="${p.id}"><span class="dot"></span>${p.title}</button>`).join('');
+const setMenu = v => document.body.classList.toggle('menu', v);
+$('#menuBtn').onclick = () => setMenu(true);
+$('#scrim').onclick = () => setMenu(false);
+$('#drawer').addEventListener('click', e => {
+  const o = e.target.closest('[data-open]');
+  if (o) { openId = o.dataset.open; navigate('/'); setTimeout(()=>document.getElementById(openId)?.scrollIntoView({behavior:'smooth',block:'start'}),50); }
+  if (o || e.target.closest('[data-close]')) setMenu(false);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+/* Some in-app file previewers intercept <a> clicks as "leaving the page",
+   even for same-page hash links. Stop that and route manually instead. */
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-go]');
+  if (!a) return;
+  e.preventDefault();
+  navigate(a.dataset.go);
+}, true);
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const a = e.target.closest('[data-go]');
+  if (!a) return;
+  e.preventDefault();
+  navigate(a.dataset.go);
+});
+
+/* ---------- Theme ---------- */
+$('#themeBtn').onclick = () => {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('theme', t); } catch (e) {}
+};
+
+/* ---------- Views ---------- */
+function home() {
+  crumb.textContent = 'Choose a professional year';
+  app.innerHTML =
+    `<section class="hero"><h1>Ayurveda notes, organised by year.</h1><p>Open a professional year, then pick a subject to start studying.</p></section>` +
+    DATA.map(p => `
+    <article class="prof ${p.id} ${openId === p.id ? 'open' : ''}" id="${p.id}">
+      <button class="prof-btn" data-prof="${p.id}" aria-expanded="${openId === p.id}">
+        <span class="ord">${p.ord}<sup>${p.sup}</sup></span>
+        <span class="pt"><b>Professional</b><small>${p.subjects.length} subjects: ${p.tag}</small></span>
+        <span class="chev">${chev}</span>
+      </button>
+      <div class="wrap"><div class="subs"><ul>
+        ${p.subjects.map(s => s.parts ? withParts(p, s) : `<li><a data-go="/${p.id}/${s.id}" tabindex="0">${s.name}${arrowSm()}</a></li>`).join('')}
+      </ul></div></div>
+    </article>`).join('');
+}
+function withParts(p, s) {
+  return `<li class="has-parts"><button class="sub-btn" data-sub aria-expanded="false"><span class="l">${s.name}<em>${s.parts.length} ${s.partLabel || 'sub-types'}</em></span><span class="mini">${chev}</span></button>
+    <div class="wrap2"><ul>${s.parts.map(pt => `<li><a data-go="/${p.id}/${s.id}/${pt.id}" tabindex="0">${pt.name}${arrowSm()}</a></li>`).join('')}</ul></div></li>`;
+}
+function arrowSm() { return '<span style="width:18px;height:18px;display:block">' + arrow + '</span>'; }
+
+app.addEventListener('click', e => {
+  const sb = e.target.closest('[data-sub]');
+  if (sb) { const li = sb.closest('.has-parts'); sb.setAttribute('aria-expanded', li.classList.toggle('open')); return; }
+  const b = e.target.closest('[data-prof]');
+  if (!b) return;
+  const id = b.dataset.prof;
+  openId = openId === id ? null : id;
+  document.querySelectorAll('.prof').forEach(el => {
+    const on = el.id === openId;
+    el.classList.toggle('open', on);
+    el.querySelector('.prof-btn').setAttribute('aria-expanded', on);
+  });
+});
+
+function placeholder(name) {
+  return `<div class="empty"><b>${name} notes are coming soon</b>Study material, revision tables and practice questions will appear here.</div>`;
+}
+
+function subject(pid, sid, partId) {
+  const P = DATA.find(x => x.id === pid);
+  const S = P && P.subjects.find(x => x.id === sid);
+  if (!S) return home();
+  const Pt = partId && S.parts && S.parts.find(x => x.id === partId);
+  const item = Pt || S;
+  const backHref = Pt ? `/${pid}/${sid}` : '/';
+  const backText = Pt ? S.name : 'All subjects';
+  crumb.textContent = `${P.title} > ${item.name}`;
+  openId = pid;
+  const sub = Pt ? `${S.name}, ${P.title}` : P.title;
+  let body;
+  if (S.parts && !Pt) {
+    body = `<div class="parts ${pid}">${S.parts.map(pt => `<a class="part" data-go="/${pid}/${sid}/${pt.id}" tabindex="0">${pt.name}${arrow}</a>`).join('')}</div>`;
+  } else {
+    const ch = (item.chapters || []).map(c => typeof c === 'string' ? {name:c} : c);
+    const chaps = ch.length ? `<div class="chaps ${pid}">${ch.map(c => `<details class="chap"><summary><span>${c.name}</span>${chev}</summary><div class="chap-body">${c.content || '<p class="soft">Notes for this chapter are coming soon.</p>'}</div></details>`).join('')}</div>` : '';
+    const main = item.content ? `<section class="content">${item.content}</section>` : '';
+    body = (main + chaps) || `<section class="content">${placeholder(item.name)}</section>`;
+  }
+  app.innerHTML = `
+    <div class="head ${pid}">
+      <a class="back" data-go="${backHref}" tabindex="0">${back}${backText}</a>
+      <h1>${item.name}</h1><p>${sub}</p>
+    </div>${body}`;
+}
+
+/* ---------- Router ---------- */
+function render() {
+  const [p, s, part] = route.replace(/^#?\/?/, '').split('/').filter(Boolean);
+  p && s ? subject(p, s, part) : home();
+}
+function navigate(target) {
+  route = target;
+  render();
+  window.scrollTo(0, 0);
+}
+render();
+</script>
+</body>
+</html>
